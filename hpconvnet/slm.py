@@ -17,6 +17,7 @@ from hyperopt.pyll_utils import hp_normal
 from hyperopt.pyll_utils import hp_lognormal
 
 import pyll_slm  # adds the symbols to pyll.scope
+import pyll_slm_sandbox
 
 pyll.scope.import_(globals(),
     # -- from pyll
@@ -52,6 +53,8 @@ pyll.scope.import_(globals(),
     'slm_lnorm',
     'slm_lpool_alpha',
     'slm_fbncc_chmaj',
+    'slm_fbcorr_chmaj', # -- giovani
+    'slm_lpool_rectlin', # -- giovani
     'slm_quantize_gridpool',
     #
     # -- renamed symbols
