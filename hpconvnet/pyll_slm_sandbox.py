@@ -8,7 +8,7 @@ import numpy as np
 
 import theano.tensor as tensor
 from hyperopt import pyll
-from .pyll_slm import boxconv
+from .pyll_slm import boxconv, alloc_random_uniform_filterbank
 
 
 logger = logging.getLogger(__name__)
@@ -40,3 +40,16 @@ def slm_lpool_rectlin((x, x_shp),
 
     assert r_shp[2] == r_shp[3]
     return r, r_shp
+
+
+@pyll.scope.define
+def get_fb(n_filters, size, channels):
+
+    FB = alloc_random_uniform_filterbank(
+        n_filters, size, size, channels,
+        dtype='float32',
+        rseed=42,
+        normalize=True)
+
+    # -- transform into channel major
+    return FB.transpose(0, 3, 1, 2)

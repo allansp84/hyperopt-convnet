@@ -495,4 +495,8 @@ def call_catching_pipeline_errors(fn):
             raise_error(e)
         else:
             raise
-
+    except Exception, e:
+        if "Bad size for the output shape" in str(e):
+            raise_error(e)
+        else:
+            raise
