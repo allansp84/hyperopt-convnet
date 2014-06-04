@@ -155,11 +155,11 @@ affine_image_warp = AffineImageWarp()
 @pyll.scope.define
 def slm_affine_image_warp((x, x_shp),
         rot, shear, scale, trans, oshape):
-    assert x_shp[2] == x_shp[3]
+
     z = affine_image_warp(x,
         rot, shear, np.asarray(scale), np.asarray(trans), np.asarray(oshape))
     z_shp = (x_shp[0], x_shp[1]) + tuple(oshape)
-    assert z_shp[2] == z_shp[3]
+
     return z, z_shp
 
 
@@ -246,7 +246,7 @@ def slm_fbcorr_chmaj((x, x_shp), kerns, stride=1, mode='valid'):
     kerns - filterbank with shape (n_filters, ker_size, ker_size, channels)
 
     """
-    assert x_shp[2] == x_shp[3]
+
     assert x.dtype == 'float32'
     # Reference implementation:
     # ../pythor3/pythor3/operation/fbcorr_/plugins/scipy_naive/scipy_naive.py
@@ -275,7 +275,6 @@ def slm_fbcorr_chmaj((x, x_shp), kerns, stride=1, mode='valid'):
     else:
         raise NotImplementedError('fbcorr mode', mode)
 
-    assert x_shp[2] == x_shp[3]
     return x, x_shp
 
 
@@ -298,7 +297,7 @@ def slm_lpool((x, x_shp),
         stride=1,
         mode='valid'):
     assert x.dtype == 'float32'
-    assert x_shp[2] == x_shp[3]
+
     order=float(order)
 
     ker_shape = (ker_size, ker_size)
@@ -322,7 +321,7 @@ def slm_lpool((x, x_shp),
         r = r[:, :, ::stride, ::stride]
         # intdiv is tricky... so just use numpy
         r_shp = np.empty(r_shp)[:, :, ::stride, ::stride].shape
-    assert r_shp[2] == r_shp[3]
+
     return r, r_shp
 
 
@@ -339,7 +338,7 @@ def slm_lnorm((x, x_shp),
     # Reference implementation:
     # ../pythor3/pythor3/operation/lnorm_/plugins/scipy_naive/scipy_naive.py
     assert x.dtype == 'float32'
-    assert x_shp[2] == x_shp[3]
+
     inker_shape=(ker_size, ker_size)
     outker_shape=(ker_size, ker_size)  # (3, 3)
     if mode != 'valid':

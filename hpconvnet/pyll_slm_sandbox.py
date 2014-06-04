@@ -38,7 +38,6 @@ def slm_lpool_rectlin((x, x_shp),
         # intdiv is tricky... so just use numpy
         r_shp = np.empty(r_shp)[:, :, ::stride, ::stride].shape
 
-    assert r_shp[2] == r_shp[3]
     return r, r_shp
 
 
